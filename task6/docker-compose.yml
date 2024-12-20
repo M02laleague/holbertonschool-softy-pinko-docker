@@ -1,0 +1,31 @@
+services:
+  proxy:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    image: softy-pinko-proxy:task5
+    ports:
+      - "80:80"  # Le proxy écoute sur le port 80
+    depends_on:
+      - back-end
+      - front-end
+
+  back-end:
+    build:
+      context: /home/m02laleague/holbertonschool-softy-pinko-docker/task5/back-end
+      dockerfile: Dockerfile
+    image: softy-pinko-back-end:task5
+    expose:
+      - "5252"  # Le port est accessible uniquement par les autres services Docker
+    environment:
+      - FLASK_ENV=production
+
+  front-end:
+    build:
+      context: /home/m02laleague/holbertonschool-softy-pinko-docker/task5/front-end
+      dockerfile: Dockerfile
+    image: softy-pinko-front-end:task5
+    expose:
+      - "9000"  # Le port est accessible uniquement par les autres services Docker
+    depends_on:
+      - back-end

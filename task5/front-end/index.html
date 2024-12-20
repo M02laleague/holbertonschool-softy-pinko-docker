@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Softy Pinko - Une application frontend créée par Elfamoso Diallo">
+    <title>Softy Pinko</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Bienvenue sur Softy Pinko Frontend</h1>
+        <h2>Créé par Elfamoso Diallo</h2>
+    </header>
+    <main>
+        <h3 id="dynamic-content">Chargement des données...</h3>
+    </main>
+    <script>
+        $(function() {
+            $.ajax({
+                type: "GET",
+                url: "/api/hello",  // Passe par le proxy
+                success: function (data) {
+                    console.log(data);
+                    $('#dynamic-content').text(data);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Erreur lors de l'appel API : ", error);
+                    $('#dynamic-content').text("Erreur lors de la récupération des données.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
